@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.ssg'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // 스프링 웹 프로젝트의 필수 라이브러리
+    compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    // Spring Core (핵심 기능)
+    implementation 'org.springframework:spring-core:5.3.27'
+    // Spring ApplicationContext
+    implementation 'org.springframework:spring-context:5.3.27'
+    // Spring Web-MVC 기능
+    implementation 'org.springframework:spring-webmvc:5.3.27'
+    // Spring 애플리케이션 단위/통합 테스트 기능
+    implementation 'org.springframework:spring-test:5.3.27'
+
+    // jdbc  & 트랜잭션 관련 기능
+    implementation 'org.springframework:spring-jdbc:5.3.27'
+    implementation 'org.springframework:spring-tx:5.3.27'
+
+    // lombok 라이브러리
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // log4j2 라이브러리
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.1'
+
+    // JSTL
+    implementation 'jstl:jstl:1.2'
+
+    // MySQL 8.0.x 드라이버
+    implementation 'mysql:mysql-connector-java:8.0.22'
+
+    // DB 커넥션풀
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+    // mybatis
+    // tx, jdbc, mybatis, mybatis-spring의 4가지 모듈이 모두 있어야 mybatis 사용 가능
+    implementation 'org.mybatis:mybatis:3.5.7'
+    implementation 'org.mybatis:mybatis-spring:2.0.6'
+
+    //계층간 객체 변환용 mapper
+    implementation 'org.modelmapper:modelmapper:3.0.0'
+
+    // 유효성 검사
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.1.Final'
+
+    //  MyBatis 사용 편의성을 제공
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.glassfish.web:javax.el:2.2.6'
+
+    // 테스트를 수행할 때 필요한 기능을 제공하는 라이브러리
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
